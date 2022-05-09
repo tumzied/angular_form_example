@@ -12,12 +12,19 @@ export class AppComponent implements OnInit  {
   title = 'FormArray Example in Angular Reactive forms';
  
   skillsForm:FormGroup;
+
+  skillsItem=[
+    {id:1,name:"c++"},
+    {id:2,name:"c#"},
+    {id:3,name:"py"},
+    {id:4,name:"js"},
+    {id:5,name:"js++"},
+  ]
  
   constructor(private fb:FormBuilder) {
  
     this.skillsForm = this.fb.group({
-      name: '',
-      skills: this.fb.array([]) ,
+      skill: null
     });
   
   }
@@ -27,41 +34,10 @@ export class AppComponent implements OnInit  {
   }
 
 
- 
-  get skills() : FormArray {
-    return this.skillsForm.get("skills") as FormArray
-  }
- 
-  newSkill(): FormGroup {
-    return this.fb.group({
-      skill: '',
-      exp: '',
-    })
-  }
- 
-  addSkills() {
-    this.skills.push(this.newSkill());
-    
-  }
- 
-  removeSkill(i:number) {
-    this.skills.removeAt(i);
-  }
- 
+
   onSubmit() {
     console.log(this.skillsForm.value);
   }
  
-}
- 
- 
-export class country {
-  id: string;
-  name: string;
- 
-  constructor(id: string, name: string) {
-    this.id = id;
-    this.name = name;
-  }
 }
  
