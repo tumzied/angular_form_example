@@ -1,36 +1,67 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { FormGroup, FormControl,FormArray, FormBuilder } from '@angular/forms'
+ 
+ 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-
-  title = 'Template driven forms';
+export class AppComponent implements OnInit  {
+  
+  title = 'FormArray Example in Angular Reactive forms';
  
-  countryList:country[] = [
-    new country("1", "India"),
-    new country('2', 'USA'),
-    new country('3', 'England')
-  ];
-
-  onSubmit(contactForm:any) {
-    console.log(contactForm.value);
+  skillsForm:FormGroup;
+ 
+  constructor(private fb:FormBuilder) {
+ 
+    this.skillsForm = this.fb.group({
+      name: '',
+      skills: this.fb.array([]) ,
+    });
+  
   }
+
+  ngOnInit(): void {
+    
+  }
+
+
+ 
+  get skills() : FormArray {
+    return this.skillsForm.get("skills") as FormArray
+  }
+ 
+  newSkill(): FormGroup {
+    return this.fb.group({
+      skill: '',
+      exp: '',
+    })
+  }
+ 
+  addSkills() {
+    this.skills.push(this.newSkill());
+    
+  }
+ 
+  removeSkill(i:number) {
+    this.skills.removeAt(i);
+  }
+ 
+  onSubmit() {
+    console.log(this.skillsForm.value);
+  }
+ 
 }
-
-
+ 
+ 
 export class country {
-  id:string;
-  name:string;
+  id: string;
+  name: string;
  
-  constructor(id:string, name:string) {
-    this.id=id;
-    this.name=name;
+  constructor(id: string, name: string) {
+    this.id = id;
+    this.name = name;
   }
 }
-
- 
-
  
