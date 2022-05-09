@@ -8,8 +8,8 @@
  
   Skills:
   <div formArrayName="skills">
-    <div *ngFor="let skill of skills.controls; let i=index">
-      <div >
+    <div *ngFor="let skill of skills.controls; let i=index" >
+      <div [formGroupName]="i">
         {{i}}
         skill name :
         <input type="text" formControlName="skill">
